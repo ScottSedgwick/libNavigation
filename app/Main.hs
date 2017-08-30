@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import LibNav
 
 main :: IO ()
 main = undefined

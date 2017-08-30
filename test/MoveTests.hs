@@ -1,8 +1,9 @@
 module MoveTests ( moveTests ) where
 
 import Test.HUnit
-import Lib
+import LibNav
 
+-- TODO: Check the math, make sure it is right.  How?
 -- TODO: Flesh this out with some more pre-calculated tests.
 
 startPosn00 :: Posn

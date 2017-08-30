@@ -1,4 +1,4 @@
-module Lib
+module LibNav
     ( move
     , Posn(..)
     , Degrees
