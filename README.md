@@ -2,6 +2,7 @@
 
 A general purpose library for navigational calculations (for ocean going vessels)
 
+
 ## Getting Started
 
 This project is a Haskell library, formatted using stack.
@@ -13,6 +14,22 @@ Clone this repo: `git clone https://github.com/ScottSedgwick/libNavigation.git`
 Build the project: `stack build`
 
 Test the project: `stack test`
+
+
+### TODO
+
+This project is in the early stages of development - the only function it has right now is a dead reckoning calculation, 
+based on Rhumb Lines, and limited to fairly short legs as it uses the mean latitude, instead of the mid latitude, for
+distance correction.  Do not use for legs longer than a few hundred nautical miles.
+
+Intended additions:
+* Better dead reckoning calculations
+* Great circle calculation
+* A full suite of Astro-Navigation functions, including:
+  * Noon sun sights
+  * Running sun sights
+  * Celestial shot planning functions
+  * Celestial sight calculation
 
 
 ### Prerequisites
