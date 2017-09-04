@@ -20,7 +20,7 @@ spd16 = 16.97056  -- 12 * sqrt 2
 
 testMove :: Posn -> Degrees -> Knots -> Hours -> Posn -> Test
 testMove origin bearing speed time expected = TestCase (assertEqual "" expected actual)
-  where actual = move bearing speed time origin
+  where actual = deadReckon bearing speed time origin
 
 testMoveN00 :: Test
 testMoveN00 = testMove startPosn00 000 spd12 1 Posn { lat =  00.2, lon =  00.0 }

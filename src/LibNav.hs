@@ -1,41 +1,39 @@
 module LibNav
-    ( move
-    , Posn(..)
+    ( deadReckon
+    , gcDistance
+    , gcInitCourse
+    , gcFinalCourse
+    , Posn (..)
     , Degrees
     , Knots
     , Hours
-    ) 
+    , NMiles
+
+    -- The remainder of these exports are only included for unit testing.
+    , getDir
+    , gcInitQuadrant
+    , gcFinalQuadrant
+    , position
+    , EW (..)
+    , Quadrant (..)
+    )
 where
 
-type Degrees = Double
-type Radians = Double
-type Knots = Double
-type Lat = Double
-type Lon = Double
-type Hours = Double
+-- This site is an excellent resource for all things relating to seamanship:
+-- http://shipofficer.com/so/
 
-data Posn = Posn { lat :: Lat, lon :: Lon } deriving (Show)
-instance Eq Posn where
-  (==) p1 p2 = ((abs (la1 - la2)) < err) && ((abs (lo1 - lo2)) < err)
-    where
-      la1 = lat p1
-      la2 = lat p2
-      lo1 = lon p1
-      lo2 = lon p2
-      err = 0.000002
+import LibNav.Types
+import LibNav.GreatCircle
+import LibNav.MathUtils
 
-degToRad :: Degrees -> Radians
-degToRad x = x * pi / 180
-
-move :: Degrees -> Knots -> Hours -> Posn -> Posn
-move deg spd time posn = Posn lat' lon'
+deadReckon :: Degrees -> Knots -> Hours -> Posn -> Posn
+deadReckon deg spd time posn = Posn latitude' longtitude'
   where
-    latt = lat posn
-    lonn = lon posn
-    dist = spd * time
-    dstx = (dist / 60) * sin (degToRad deg)
-    dsty = (dist / 60) * cos (degToRad deg)
-    lat' = latt + dsty
-    latc = abs (cos (degToRad ((latt + lat') / 2)))
-    lon' = lonn + (dstx / latc)
-
+    latitude    = lat posn
+    longtitude  = lon posn
+    distance    = spd * time
+    departure   = (distance / 60) * sin (degToRad deg)
+    distLat     = (distance / 60) * cos (degToRad deg)
+    latitude'   = latitude + distLat
+    meanLatCorr = abs (cos (degToRad ((latitude + latitude') / 2)))
+    longtitude' = longtitude + (departure / meanLatCorr)
