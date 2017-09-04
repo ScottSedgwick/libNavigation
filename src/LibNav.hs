@@ -1,10 +1,10 @@
 module LibNav
-    ( deadReckon
-    , gcDistance
+    ( --deadReckon
+     gcDistance
     , gcInitCourse
     , gcFinalCourse
     , Posn (..)
-    , Degrees
+    , Degrees(..)
     , Knots
     , Hours
     , NMiles
@@ -26,14 +26,14 @@ import LibNav.Types
 import LibNav.GreatCircle
 import LibNav.MathUtils
 
-deadReckon :: Degrees -> Knots -> Hours -> Posn -> Posn
-deadReckon deg spd time posn = Posn latitude' longtitude'
-  where
-    latitude    = lat posn
-    longtitude  = lon posn
-    distance    = spd * time
-    departure   = (distance / 60) * sin (degToRad deg)
-    distLat     = (distance / 60) * cos (degToRad deg)
-    latitude'   = latitude + distLat
-    meanLatCorr = abs (cos (degToRad ((latitude + latitude') / 2)))
-    longtitude' = longtitude + (departure / meanLatCorr)
+-- deadReckon :: Degrees -> Knots -> Hours -> Posn -> Posn
+-- deadReckon deg spd time posn = Posn latitude' longtitude'
+--   where
+--     latitude    = lat posn
+--     longtitude  = lon posn
+--     distance    = spd * time
+--     departure   = (distance / 60) * sine deg
+--     distLat     = (distance / 60) * cosine deg
+--     latitude'   = latitude + distLat
+--     meanLatCorr = abs (cosine ((latitude + latitude') / 2))
+--     longtitude' = longtitude + (departure / meanLatCorr)

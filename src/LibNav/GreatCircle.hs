@@ -8,20 +8,22 @@ import LibNav.MathUtils
 import LibNav.Types
 
 gcDistance :: Posn -> Posn -> NMiles
-gcDistance posnA posnB = 60 * gcArc posnA posnB
+gcDistance posnA posnB = 60 * d
+    where
+        (Deg d) = gcArc posnA posnB
 
 gcArc :: Posn -> Posn -> Degrees
 gcArc posnA posnB = radToDeg $ gcArcR (posToPosR posnA) (posToPosR posnB)
 
 gcArcR :: PosnR -> PosnR -> Radians
 gcArcR posnA posnB = acos $ sin (latR posnA) * sin (latR posnB) +
-                            cos (latR posnA) * cos (latR posnB) * cos (lonR posnB - lonR posnA)
+                               cos (latR posnA) * cos (latR posnB) * cos (lonR posnB - lonR posnA)
 
 getDir :: Degrees -> Degrees -> EW
 getDir a b = getDirR (degToRad a) (degToRad b)
 
 getDirR :: Radians -> Radians -> EW
-getDirR a b
+getDirR (Rad a) (Rad b)
     | abs (b - a) > pi = if a < b then W else E
     | a < b            = E
     | otherwise        = W
@@ -33,7 +35,7 @@ gcFinalQuadrant :: Posn -> Posn -> Quadrant
 gcFinalQuadrant a b = gcFinalQuadrantR (posToPosR a) (posToPosR b)
 
 gcQuadAdjustR :: Quadrant -> Radians -> Radians
-gcQuadAdjustR q r =
+gcQuadAdjustR q (Rad r) = Rad $
     case q of
         NE -> r
         SE -> pi  - r
@@ -44,11 +46,11 @@ gcCourseR :: (Radians -> Radians -> Radians -> Radians) -> (PosnR -> PosnR -> Qu
 gcCourseR f g posnA posnB = gcQuadAdjustR quad rawCrs
     where
         dAB     = gcArcR posnA posnB
-        latAraw = latR posnA
-        latBraw = latR posnB
+        (Rad latAraw) = latR posnA
+        (Rad latBraw) = latR posnB
         latA    = abs latAraw
         latB    = (if ((latAraw > 0) && (latBraw < 0)) || ((latAraw < 0) && (latBraw > 0)) then (-1) else 1) * abs latBraw
-        rawCrs  = f latA latB dAB
+        rawCrs  = f (Rad latA) (Rad latB) dAB
         quad    = g posnA posnB
         
 gcInitCourse :: Posn -> Posn -> Degrees
@@ -61,7 +63,7 @@ gcInitCourseR = gcCourseR f gcInitQuadrantR
 
 gcInitQuadrantR :: PosnR -> PosnR -> Quadrant
 gcInitQuadrantR posnA posnB
-    | latR posnA > 0 = if d == E then NE else NW
+    | latR posnA > Rad 0 = if d == E then NE else NW
     | d == E = SE
     | otherwise = SW
     where d = getDirR (lonR posnA) (lonR posnB)
@@ -76,7 +78,7 @@ gcFinalCourseR = gcCourseR f gcFinalQuadrantR
 
 gcFinalQuadrantR :: PosnR -> PosnR -> Quadrant
 gcFinalQuadrantR posnA posnB
-    | latR posnA > 0 = if d == E then SE else SW
+    | latR posnA > (Rad 0) = if d == E then SE else SW
     | d == E = NE
     | otherwise = NW
     where d = getDirR (lonR posnA) (lonR posnB)
