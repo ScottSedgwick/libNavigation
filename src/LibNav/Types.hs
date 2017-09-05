@@ -6,11 +6,17 @@ mantissa x = x - fromIntegral (round x :: Integer)
 tau :: Double
 tau = pi * 2
 
+d2r :: Double -> Double
+d2r d = tau * d / 360
+
 degToRad :: Degrees -> Radians
-degToRad (Deg d) = Rad $ tau * mantissa (d / 360)
+degToRad (Deg d) = Rad $ d2r d
+
+r2d :: Double -> Double
+r2d r = r * 360 / tau
 
 radToDeg :: Radians -> Degrees
-radToDeg (Rad r) = Deg $ (r / tau) * 360
+radToDeg (Rad r) = Deg $ r2d r
 
 newtype Degrees = Deg Double deriving (Eq, Ord, Show)
 instance Num Degrees where
@@ -27,16 +33,16 @@ instance Floating Degrees where
     pi = Deg pi
     exp (Deg x) = Deg $ exp x
     log (Deg x) = Deg $ log x
-    sin = radToDeg . sin . degToRad
-    cos = radToDeg . cos . degToRad
-    asin = radToDeg . asin . degToRad
-    acos = radToDeg . acos . degToRad
-    atan = radToDeg . atan . degToRad
-    sinh = radToDeg . sinh . degToRad
-    cosh = radToDeg . cosh . degToRad
-    asinh = radToDeg . asinh . degToRad
-    acosh = radToDeg . acosh . degToRad
-    atanh = radToDeg . atanh . degToRad
+    sin (Deg x) = Deg $ sin $ d2r x
+    cos (Deg x) = Deg $ cos $ d2r x
+    asin (Deg x) = Deg $ asin $ d2r x
+    acos (Deg x) = Deg $ acos $ d2r x
+    atan (Deg x) = Deg $ atan $ d2r x
+    sinh (Deg x) = Deg $ sinh $ d2r x
+    cosh (Deg x) = Deg $ cosh $ d2r x
+    asinh (Deg x) = Deg $ asinh $ d2r x
+    acosh (Deg x) = Deg $ acosh $ d2r x
+    atanh (Deg x) = Deg $ atanh $ d2r x
 
 newtype Radians = Rad Double deriving (Eq, Ord, Show)
 instance Num Radians where
@@ -71,6 +77,7 @@ type LatR = Radians
 type LonR = Radians
 type Hours = Double
 type NMiles = Double
+type Metres = Double
 data Quadrant = NE | SE | NW | SW deriving (Eq, Show)
 data EW = E | W deriving (Eq, Show)
 

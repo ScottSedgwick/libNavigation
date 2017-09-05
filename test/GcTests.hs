@@ -2,6 +2,7 @@ module GcTests ( gcTests ) where
     
 import Control.Monad (unless)
 import Test.HUnit
+import TestUtils
 import LibNav
 
 -- The math and worked examples for these tests taken from:
@@ -19,10 +20,6 @@ class MyAssertable a where
 
 instance MyAssertable Degrees where
     assertEq s (Deg a) (Deg b) (Deg c) = assertEquals s a b c
-
-assertEquals ::   String -> Double -> Double -> Double -> Assertion
-assertEquals preface delta expected actual = unless (abs (expected - actual) < delta) (assertFailure msg)
-    where msg = (if null preface then "" else preface ++ "\n") ++ "expected: " ++ show expected ++ "\n but got: " ++ show actual
 
 type TestData = (String, Posn, Posn, NMiles, Degrees, Quadrant, Degrees, Quadrant, EW)
 
