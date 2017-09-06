@@ -18,18 +18,18 @@ Test the project: `stack test`
 
 ### TODO
 
-This project is in the early stages of development - the only function it has right now is a dead reckoning calculation, 
-based on Rhumb Lines, and limited to fairly short legs as it uses the mean latitude, instead of the mid latitude, for
-distance correction.  Do not use for legs longer than a few hundred nautical miles.
+The Rhumb line calculations are deprecated, in favour of the formulae in LibNav.PlaneSailing.
+Horizon range calculations are in LibNav.Horizon.
+Great Circle calculations are in LibNav.GreatCircle.
+LibNav.ParallelSailing contins formulae for travelling only east-west.  Don't use thes, they are building blocks for PlaneSailing.
 
 Intended additions:
-* Better dead reckoning calculations
-* Great circle calculation
 * A full suite of Astro-Navigation functions, including:
   * Noon sun sights
   * Running sun sights
   * Celestial shot planning functions
   * Celestial sight calculation
+* Eventually, everything useful in Ship Officers (ref below)
 
 
 ### Prerequisites
@@ -65,3 +65,4 @@ This project is licensed under the BSD3 License - see the [LICENSE](LICENSE) fil
 ## Acknowledgments
 
 * Hat tip to [Astro Navigation Demystified](astronavigationdemystified.com) for worked examples to use in unit tests.
+* Hat tip to [Ship Officers](http://shipofficer.com/so/navigation/) for everything else, and astro navigation.
