@@ -1,6 +1,5 @@
 module ParallelSailingTests ( parallelSailingTests ) where
     
-import Control.Monad (unless)
 import Test.HUnit
 import TestUtils
 import LibNav

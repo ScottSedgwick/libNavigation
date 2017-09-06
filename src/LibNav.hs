@@ -4,6 +4,8 @@ module LibNav
     , gcDistance
     , gcInitCourse
     , gcFinalCourse
+    , planeCourse
+    , planeDistance
     , radarHorizon
     , visibleHorizon
     , Posn (..)
@@ -30,6 +32,7 @@ import LibNav.GreatCircle
 import LibNav.Horizon
 import LibNav.MathUtils
 import LibNav.ParallelSailing
+import LibNav.PlaneSailing
 
 -- deadReckon :: Degrees -> Knots -> Hours -> Posn -> Posn
 -- deadReckon deg spd time posn = Posn latitude' longtitude'

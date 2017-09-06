@@ -20,6 +20,7 @@ library
                      , LibNav.Horizon
                      , LibNav.MathUtils
                      , LibNav.ParallelSailing
+                     , LibNav.PlaneSailing
                      , LibNav.Types
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
@@ -40,6 +41,7 @@ test-suite nav-test
                      , HorizonTests
                      , MoveTests
                      , ParallelSailingTests
+                     , PlaneSailingTests
                      , TestUtils
   build-depends:       base
                      , call-stack
