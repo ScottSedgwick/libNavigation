@@ -7,12 +7,13 @@ import PlaneSailingTests
 import LibNav
 import TestUtils
 
-tests = TestList 
+tests = TestList
     [ TestLabel "Movement Tests" moveTests
     , TestLabel "Great Circle Tests" gcTests
     , TestLabel "Horizon Tests" horizonTests
     , TestLabel "Parallel Sailing Tests" parallelSailingTests
     , TestLabel "Plane Sailing Tests" planeSailingTests
+    , Deg (-68.3) ~=? Deg (-68.2996857736635)
     ]
 
 main :: IO ()

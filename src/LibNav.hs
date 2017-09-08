@@ -6,6 +6,7 @@ module LibNav
     , gcFinalCourse
     , planeCourse
     , planeDistance
+    , planeDR
     , radarHorizon
     , visibleHorizon
     , Posn (..)
@@ -18,6 +19,8 @@ module LibNav
     , getDir
     , gcInitQuadrant
     , gcFinalQuadrant
+    , gcQuadAdjust
+    , planeQuadrant
     , position
     , EW (..)
     , Quadrant (..)
@@ -30,18 +33,6 @@ where
 import LibNav.Types
 import LibNav.GreatCircle
 import LibNav.Horizon
-import LibNav.MathUtils
 import LibNav.ParallelSailing
 import LibNav.PlaneSailing
 
--- deadReckon :: Degrees -> Knots -> Hours -> Posn -> Posn
--- deadReckon deg spd time posn = Posn latitude' longtitude'
---   where
---     latitude    = lat posn
---     longtitude  = lon posn
---     distance    = spd * time
---     departure   = (distance / 60) * sine deg
---     distLat     = (distance / 60) * cosine deg
---     latitude'   = latitude + distLat
---     meanLatCorr = abs (cosine ((latitude + latitude') / 2))
---     longtitude' = longtitude + (departure / meanLatCorr)

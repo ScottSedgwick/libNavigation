@@ -14,7 +14,7 @@ r2d r = r * 360 / tau
 
 newtype Degrees = Deg Double deriving (Ord, Show)
 instance Eq Degrees where
-    (==) (Deg a) (Deg b) = abs (b - a) < 0.000002
+    (==) (Deg a) (Deg b) = abs (b - a) < 0.001
 instance Num Degrees where
     (+) (Deg a) (Deg b) = Deg (a + b)
     (-) (Deg a) (Deg b) = Deg (a - b)
@@ -51,16 +51,10 @@ data EW = E | W deriving (Eq, Show)
 
 data Posn = Posn { lat :: Lat, lon :: Lon } deriving (Show)
 instance Eq Posn where
-  (==) p1 p2 = (la1 == la2) && (lo1 == lo2)
-    where
-      (Deg la1) = lat p1
-      (Deg la2) = lat p2
-      (Deg lo1) = lon p1
-      (Deg lo2) = lon p2
-      -- err = 0.000002
+  (==) p1 p2 = (lat p1 == lat p2) && (lon p1 == lon p2)
 
 position :: Integer -> Double -> Integer -> Double -> Posn
 position latDeg latMin lonDeg lonMin = Posn (Deg latitude) (Deg longtitude)
     where
-        latitude   = (fromIntegral latDeg :: Double) + ((latMin / 60) * if (latDeg < 0) then (-1) else 1)
-        longtitude = (fromIntegral lonDeg :: Double) + ((lonMin / 60) * if (lonDeg < 0) then (-1) else 1)
+        latitude   = (fromIntegral latDeg :: Double) + ((latMin / 60) * if latDeg < 0 then (-1) else 1)
+        longtitude = (fromIntegral lonDeg :: Double) + ((lonMin / 60) * if lonDeg < 0 then (-1) else 1)

@@ -18,7 +18,7 @@ Test the project: `stack test`
 
 ### TODO
 
-The Rhumb line calculations are deprecated, in favour of the formulae in LibNav.PlaneSailing.
+The Rhumb line calculations have been removed. Use the functions in LibNav.PlaneSailing.
 Horizon range calculations are in LibNav.Horizon.
 Great Circle calculations are in LibNav.GreatCircle.
 LibNav.ParallelSailing contins formulae for travelling only east-west.  Don't use thes, they are building blocks for PlaneSailing.
