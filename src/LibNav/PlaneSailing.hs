@@ -30,6 +30,15 @@ planeDistance p1 p2 = abs $ 60 * dLat / c
         (Deg dLat) = lat p1 - lat p2
         (Deg c) = cos $ planeCourse p1 p2
 
+distance :: Knots -> Hours -> NMiles
+distance = (*)
+
+speed :: NMiles -> Hours -> Knots
+speed = (/)
+
+timeTaken :: NMiles -> Knots -> Hours
+timeTaken = (/)
+
 planeDR :: Posn -> Degrees -> NMiles -> Posn
 planeDR p c d = Posn { lat = fLat, lon = fLon }
     where
