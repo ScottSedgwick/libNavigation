@@ -49,6 +49,17 @@ type Metres = Double
 data Quadrant = NE | SE | NW | SW deriving (Eq, Show)
 data EW = E | W deriving (Eq, Show)
 
+type DegMin = (Integer, Double)
+
+dmToDeg :: DegMin -> Degrees
+dmToDeg (d,m) = Deg (d + m / 60)
+
+degToDm :: Degrees -> DegMin
+degToDm deg = (d, m)
+  where
+    d = trunc deg
+    m = (deg - d) * 60
+
 data Posn = Posn { lat :: Lat, lon :: Lon } deriving (Show)
 instance Eq Posn where
   (==) p1 p2 = (lat p1 == lat p2) && (lon p1 == lon p2)
